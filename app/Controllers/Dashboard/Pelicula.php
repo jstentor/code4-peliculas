@@ -37,13 +37,23 @@ class Pelicula extends BaseController
     public function create() 
     {
         $peliculaModel = new PeliculaModel();
-        $peliculaModel->insert([
-            'titulo' => $this->request->getPost('titulo'),
-            'descripcion' => $this->request->getPost('descripcion'),
-        ]);
 
-        session()->setFlashdata('mensaje', 'Pelicula creada correctamente');
-        return redirect()->to('/dashboard/pelicula');
+        if( $this->validate('peliculas') ) {
+
+            $peliculaModel->insert([
+                'titulo' => $this->request->getPost('titulo'),
+                'descripcion' => $this->request->getPost('descripcion'),
+            ]);
+            session()->setFlashdata('mensaje', 'Pelicula creada correctamente');
+            return redirect()->to('/dashboard/pelicula');
+        } else {
+            session()->setFlashdata([
+                'validator' => $this->validator
+            ]);
+            return redirect()->back()->withInput();
+
+        }
+
     }
 
     public function edit($id) 
@@ -59,13 +69,21 @@ class Pelicula extends BaseController
     public function update($id)
     {
         $peliculaModel = new PeliculaModel();
-        $peliculaModel->update($id,[
-            'titulo' => $this->request->getPost('titulo'),
-            'descripcion' => $this->request->getPost('descripcion'),
-        ]);
+        
+        if( $this->validate('peliculas') ) {
 
-        session()->setFlashdata('mensaje', 'Pelicula modificada correctamente');
-        return redirect()->to('/dashboard/pelicula');
+            $peliculaModel->update($id,[
+                'titulo' => $this->request->getPost('titulo'),
+                'descripcion' => $this->request->getPost('descripcion'),
+            ]);
+            session()->setFlashdata('mensaje', 'Pelicula modificada correctamente');
+            return redirect()->to('/dashboard/pelicula');
+        } else {
+            session()->setFlashdata([
+                'validator' => $this->validator
+            ]);
+            return redirect()->back()->withInput();
+        }
 
     }
 

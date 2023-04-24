@@ -7,6 +7,8 @@ Crear categoría
 
 <?= $this->section('contenido') ?>
 
+    <?= view('partials/_form-error') ?>
+    
     <?= view('partials/_session') ?>
    <form action="/dashboard/categoria/create" method="post">
     <?= view('categoria/_form', ['op' => 'Crear']) ?>
