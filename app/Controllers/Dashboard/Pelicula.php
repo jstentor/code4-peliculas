@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Dashboard;
 
+use App\Controllers\BaseController;
 use App\Models\PeliculaModel;
 
 class Pelicula extends BaseController
@@ -40,6 +41,9 @@ class Pelicula extends BaseController
             'titulo' => $this->request->getPost('titulo'),
             'descripcion' => $this->request->getPost('descripcion'),
         ]);
+
+        session()->setFlashdata('mensaje', 'Pelicula creada correctamente');
+        return redirect()->to('/dashboard/pelicula');
     }
 
     public function edit($id) 
@@ -60,6 +64,9 @@ class Pelicula extends BaseController
             'descripcion' => $this->request->getPost('descripcion'),
         ]);
 
+        session()->setFlashdata('mensaje', 'Pelicula modificada correctamente');
+        return redirect()->to('/dashboard/pelicula');
+
     }
 
     public function delete($id) 
@@ -67,5 +74,9 @@ class Pelicula extends BaseController
         $peliculaModel = new PeliculaModel();
 
         $peliculaModel->delete($id);
+
+        session()->setFlashdata('mensaje', 'Pelicula borrada correctamente');
+
+        return redirect()->to('/dashboard/pelicula');
     }
 }

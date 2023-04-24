@@ -31,7 +31,11 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 // $routes->get('/', 'Home::index');           // listado
 
-$routes->presenter('pelicula', ['controller' => 'Pelicula']); // web page
+$routes->group('dashboard', function($routes) {
+    $routes->presenter('pelicula', ['controller' => 'Dashboard\Pelicula']); // web page
+    $routes->presenter('categoria', ['controller' => 'Dashboard\Categoria',
+                    'except' =>  ['show']]); // web page    
+});
 // $routes->resource('home'); // API REST
 /*
  * --------------------------------------------------------------------

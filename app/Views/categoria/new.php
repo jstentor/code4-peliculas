@@ -1,13 +1,15 @@
+
 <?= $this->extend('Layouts/dashboard') ?>
 
 <?= $this->section('header') ?>
-Añadir película
+Crear categoría
 <?= $this->endSection('header') ?>
 
 <?= $this->section('contenido') ?>
 
-    <form action="/dashboard/pelicula/create" method="post">
-    <?= view('pelicula/_form', ['op' => 'Crear']) ?>
+    <?= view('partials/_session') ?>
+   <form action="/dashboard/categoria/create" method="post">
+    <?= view('categoria/_form', ['op' => 'Crear']) ?>
     </form>
     
 <?= $this->endSection('contenido') ?>
